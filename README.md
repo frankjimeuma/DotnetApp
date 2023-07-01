@@ -1,5 +1,8 @@
 # Instrucciones para Aplicacion Dotnet
 
+### Agente 
+El agente para ejecutar la app Dotnet tiene por etiqueta `windows-agent`
+
 ### Comandos a Ejecutar
 
 | Fase | Comando |
@@ -24,17 +27,7 @@ Y agregar un texto despues del Welcome, ejemplo
 
 `<h1 class="display-4">Welcome from Romell Project</h1>`
 
-### SonarQube Linux
-
-```sh
-stage('Run SonarQube'){
-    steps{
-        withSonarQubeEnv('SonarQubeCursoCI') {
-            sh "/opt/sonar-scanner/bin/sonar-scanner -Dsonar.projectKey=DotnetApp"
-        }
-    }
-}
-```
+### SonarQube Windows
 
 ### SonarQube Windows
 
