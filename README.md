@@ -65,3 +65,8 @@ stage('SonarQube Quality Gate') {
     }
 }
 ```
+
+### Visualizacion de la Aplicacion
+La aplicacion se puede acceder por medio del URL: 
+
+`http://ucreativa-agent.eastus.cloudapp.azure.com:5000/`
