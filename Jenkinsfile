@@ -60,7 +60,7 @@ pipeline {
 	stage('Deploy') {
             steps {
                 bat 'sc stop DotnetAppService'
-		bat 'rmdir C:\deploy\DotnetApp\ /s /q'
+		bat 'rmdir "C:\deploy\DotnetApp\" /s /q'
 		bat 'xcopy bin\Release\net7.0\publish\ C:\deploy\DotnetApp\ /s /q /y'
 		bat 'sc start DotnetAppService'
             }
