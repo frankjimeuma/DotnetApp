@@ -23,6 +23,12 @@ pipeline {
                 echo "Bienvenid@s al ${MESSAGE}, estamos corriendo en ${BUILD_URL} y este es el build ${BUILD_NUMBER} , also this is the node with name ${NODE_NAME} and Workspace ${WORKSPACE} in Jenkins location ${JENKINS_URL}"
             }
         }
+
+	 stage('cambio sugerido') {
+            steps {
+                bat 'echo hola'
+            }
+        }
       
         stage('Instalar dependencias') {
             steps {
