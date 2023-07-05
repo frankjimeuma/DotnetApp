@@ -26,35 +26,49 @@ pipeline {
       
         stage('Instalar dependencias') {
             steps {
-                sh 'npm install'
-                //sh 'curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"'
-                //sh 'unzip awscliv2.zip'
-                //sh 'sudo ./aws/install'
+                bat 'dotnet restore'
             }
         }
       
-        //stage('Correr pruebas de unidad') {
-           // steps {
-                //sh 'npm run test'
-            //}
-        //}  
-      
-        stage('Compilacion de la aplicacion Angular') {
+        stage('Correr pruebas de unidad') {
             steps {
-                sh 'npm run build'
+                bat 'dotnet test'
+            }
+        }  
+
+	stage('Run SonarQube'){
+    	     steps{
+        	withSonarQubeEnv('SonarQubeCursoCI') {
+            	bat "sonar-scanner -Dsonar.projectKey=DotnetApp"
+                   } 
+            }
+        }
+       
+        stage('Compilacion de la aplicacion Dotnet') {
+            steps {
+                bat 'dotnet build'
             }
         }
         
 
-        stage('Mostrar Archivos') {
+        stage('Generar Artifacts') {
             steps {
-                sh 'ls dist'
+                bat 'dotnet publish -c Release'
+            }
+        }
+
+	stage('Deploy') {
+            steps {
+                bat 'sc stop DotnetAppService'
+		bat 'rmdir C:\deploy\DotnetApp\ /s /q'
+		bat 'xcopy bin\Release\net7.0\publish\ C:\deploy\DotnetApp\ /s /q /y'
+		bat 'sc start DotnetAppService'
             }
         }
         
         stage('success') {
             steps {
-                sh 'ls -la'
+                bat 'dir'
               
         
             }
